@@ -1,16 +1,27 @@
 import pyodbc
+from sqlalchemy import create_engine
+import urllib.parse
 
+## Usar para cursor.execute, commit, etc.
 def abrir_conexao_sql_server():
 
-    server = 'localhost,1433'
-    database = 'APIComexstats'
-    username = 'sa'
-    password = '@Dev123'
+    return pyodbc.connect(
+        "DRIVER={SQL Server};"
+        "SERVER=localhost,1433;"
+        "DATABASE=APIComexstats;"
+        "UID=sa;"
+        "PWD=@Dev123;"
+    )
 
-    conn = pyodbc.connect(f'DRIVER={{SQL Server}};'
-                        f'SERVER={server};'
-                        f'DATABASE={database};'
-                        f'UID={username};'
-                        f'PWD={password}')
-
-    return conn
+## Usar para pd.read_sql, suporte para pd
+def abrir_engine_sql_server():
+    conn_str = (
+        "DRIVER={ODBC Driver 17 for SQL Server};"
+        "SERVER=localhost,1433;"
+        "DATABASE=APIComexstats;"
+        "UID=sa;"
+        "PWD=@Dev123;"
+        "Encrypt=yes;TrustServerCertificate=yes;"
+    )
+    params = urllib.parse.quote_plus(conn_str)
+    return create_engine(f"mssql+pyodbc:///?odbc_connect={params}", fast_executemany=True)
