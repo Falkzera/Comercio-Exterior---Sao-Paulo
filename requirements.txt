@@ -4,4 +4,3 @@ pyodbc==5.2.0
 SQLAlchemy==2.0.43
 pandas==2.2.3
 requests==2.32.3
-requests==2.32.3
