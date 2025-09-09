@@ -8,7 +8,7 @@ from src.job_dados_programados import main
 
 st.set_page_config(layout="wide")
 
-opt_consulta = st.sidebar.selectbox('Tipo de Dados', ['Importação', 'Exportação'])
+opt_consulta = st.sidebar.selectbox('**Tipo de Dados**', ['Importação', 'Exportação'])
 
 hoje = datetime.now()
 anos = list(range(1997, hoje.year + 1))
@@ -49,7 +49,7 @@ def carregar_dados_pagina(opt_consulta, mes_ini_sel, mes_fim_sel, ano_ini_sel, a
     # Renderiza a tabela correspondente ao tipo escolhido
     st.dataframe(
         df[colunas_visiveis[opt_consulta]],
-        width='stretch',	
+        # width='stretch',	
         height=750,
         hide_index=True,
         column_config=colunas_config
