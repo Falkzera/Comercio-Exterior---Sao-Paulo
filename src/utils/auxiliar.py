@@ -3,7 +3,7 @@ import time
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from src.utils.recuperar_dados_api import recuperar_dados
-from src.utils.persistir_dados import salvar_dados_sql_server
+from src.utils.persistir_dados_bd import salvar_dados_sql_server
 
 ## Carrega o último mês de acordo com a data
 def carregar_ultimo_mes(data=None):

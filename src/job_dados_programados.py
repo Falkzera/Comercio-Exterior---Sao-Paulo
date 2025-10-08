@@ -2,7 +2,7 @@ import argparse
 from datetime import date
 from src.utils.auxiliar import carregar_ultimo_mes
 from src.utils.recuperar_dados_api import recuperar_dados
-from src.utils.persistir_dados import salvar_dados_sql_server
+from src.utils.persistir_dados_bd import salvar_dados_sql_server
 
 ## Carrega dados do último mês disponível na API
 def main(force: bool = False):
