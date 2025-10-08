@@ -3,10 +3,14 @@ import pandas as pd
 from datetime import datetime
 import calendar
 from src.utils.recuperar_dados_bd import carregar_dados
-from src.utils.auxiliar import carregar_dados_ano_por_ano
-from src.job_dados_programados import main
+from src.utils.autenticacao import exigir_login
+
+exigir_login(["admin", "analista", "viewer"]) # Permissões de visualização, todos
 
 st.set_page_config(layout="wide")
+st.sidebar.markdown("<h3 style='margin-bottom:0'>📊 Visualizacão Geral</h3>", unsafe_allow_html=True)
+st.title("Dados filtrados")
+st.markdown("### Dados brutos de Importação e Exportação do Brasil")
 
 opt_consulta = st.sidebar.selectbox('**Tipo de Dados**', ['Importação', 'Exportação'])
 
@@ -23,6 +27,8 @@ ano_ini_sel = c2.selectbox("Ano inicial", anos, index=len(anos)-1)
 c3, c4 = st.sidebar.columns(2)
 mes_fim_sel = c3.selectbox("Mês final", meses, format_func=lambda m: f"{m:02d}", index=hoje.month-2)
 ano_fim_sel = c4.selectbox("Ano final", anos, index=len(anos)-1)
+
+st.sidebar.markdown("---")
 
 colunas_visiveis = {
     'Importação': ['noMunMinsgUf', 'year', 'monthNumber', 'country', 'state', 'chapter', 'economicBlock', 'metricFOB'],
@@ -68,3 +74,6 @@ if st.sidebar.button('Carregar Dados', type='primary'):
         st.sidebar.success('Dados carregados com sucesso!')
     else:
         st.sidebar.error('Sem dados no período selecionado')
+else:
+    # Mensagem inicial
+    st.info("👈 Selecione os filtros desejados e clique em 'Carregar Dados' para visualizar os dados brutos")
